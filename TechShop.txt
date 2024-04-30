@@ -1,0 +1,565 @@
+Task:1. Database Design:
+
+1. Create the database named "TechShop"
+
+mysql> create database TechShop;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> use TechShop;
+Database changed
+
+2. Define the schema for the Customers, Products, Orders, OrderDetails and Inventory tables
+based on the provided schema.
+
+4. Create appropriate Primary Key and Foreign Key constraints for referential integrity.
+
+mysql> create table Customers(CustomerID int primary key, FirstName varchar(20), LastName varchar(20), Email varchar(20), Phone varchar(20), Add
+ress varchar(250));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> create table Products(ProductID int primary key, ProductName varchar(20), Description varchar(100), Price int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table Orders(OrderID int primary key, CustomerID int, OrderDate date, TotalAmount int, foreign key (CustomerID) references Customers(CustomerID));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create table OrderDetails(OrderDetailID int primary key, OrderID int, ProductID int, Quantity int, foreign key (OrderID) references Orders(OrderID), foreign key (ProductID) references Products(ProductID));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> create table Inventory(InventoryID int primary key, OrderID int, ProductID int, QuantityInStock int, LastStockUpdate date, foreign key (ProductID) references Products(ProductID));
+Query OK, 0 rows affected (0.04 sec)
+
+5. Insert at least 10 sample records into each of the following tables.
+
+mysql> INSERT INTO Customers (CustomerID, FirstName, LastName, Email, Phone, Address)
+    -> VALUES
+    -> (1, 'Parthi', 'Raja', 'Parthi@example.com', '1234567890', '123 Main St'),
+    -> (2, 'Priya', 'Kumar', 'priya@example.com', '9876543210', '456 Elm St'),
+    -> (3, 'Mani', 'Srinivasan', 'mani@example.com', '1357924680', '789 Oak St'),
+    -> (4, 'Deepika', 'Natarajan', 'deepika@example.com', '2468013579', '101 Maple St'),
+    -> (5, 'Arjun', 'Ganesan', 'arjun@example.com', '3692581470', '202 Pine St'),
+    -> (6, 'Nithya', 'Balaji', 'nithya@example.com', '9753108246', '303 Cedar St'),
+    -> (7, 'Senthil', 'Ravi', 'senthil@example.com', '8642075139', '404 Walnut St'),
+    -> (8, 'Shreya', 'Venkat', 'shreya@example.com', '5827309146', '505 Birch St'),
+    -> (9, 'Vijay', 'Prakash', 'vijay@example.com', '7916348025', '606 Spruce St'),
+    -> (10, 'Anusha', 'Kumar', 'anusha@example.com', '4089271563', '707 Fir St');
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Products (ProductID, ProductName, Description, Price)
+    -> VALUES
+    -> (1, 'Laptop', 'High-performance laptop with SSD storage', 1200),
+    -> (2, 'Smartphone', 'Latest smartphone with dual-camera setup', 800),
+    -> (3, 'Headphones', 'Noise-canceling headphones with wireless connectivity', 150),
+    -> (4, 'Tablet', '10-inch tablet with high-resolution display', 400),
+    -> (5, 'Smartwatch', 'Fitness tracker with heart rate monitor', 200),
+    -> (6, 'Speaker', 'Bluetooth speaker with 360-degree sound', 100),
+    -> (7, 'Camera', 'Mirrorless camera with 4K video recording', 1500),
+    -> (8, 'Printer', 'All-in-one printer with wireless printing', 250),
+    -> (9, 'Gaming Console', 'Next-gen gaming console with 4K gaming support', 500),
+    -> (10, 'Router', 'High-speed router with multiple antennas', 120);
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Orders (OrderID, CustomerID, OrderDate, TotalAmount)
+
+    -> VALUES
+    -> (1, 1, '2024-04-27', 1200),
+    -> (2, 2, '2024-04-27', 800),
+    -> (3, 3, '2024-04-27', 150),
+    -> (4, 4, '2024-04-27', 400),
+    -> (5, 5, '2024-04-27', 200),
+    -> (6, 6, '2024-04-27', 100),
+    -> (7, 7, '2024-04-27', 1500),
+    -> (8, 8, '2024-04-27', 250),
+    -> (9, 9, '2024-04-27', 500),
+    -> (10, 10, '2024-04-27', 120);
+Query OK, 10 rows affected (0.02 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO OrderDetails (OrderDetailID, OrderID, ProductID, Quantity)
+    -> VALUES
+    -> (1, 1, 1, 2),
+    -> (2, 2, 2, 1),
+    -> (3, 3, 3, 3),
+    -> (4, 4, 4, 1),
+    -> (5, 5, 5, 2),
+    -> (6, 6, 6, 1),
+    -> (7, 7, 7, 1),
+    -> (8, 8, 8, 2),
+    -> (9, 9, 9, 1),
+    -> (10, 10, 10, 1);
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Inventory (InventoryID, ProductID, QuantityInStock, LastStockUpdate)
+    -> VALUES
+    -> (1, 1, 50, '2024-04-27'),
+    -> (2, 2, 30, '2024-04-27'),
+    -> (3, 3, 100, '2024-04-27'),
+    -> (4, 4, 20, '2024-04-27'),
+    -> (5, 5, 40, '2024-04-27'),
+    -> (6, 6, 60, '2024-04-27'),
+    -> (7, 7, 10, '2024-04-27'),
+    -> (8, 8, 25, '2024-04-27'),
+    -> (9, 9, 15, '2024-04-27'),
+    -> (10, 10, 35, '2024-04-27');
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+--------------------------------------------------------------------------------------------------------------------------------
+Tasks 2: Select, Where, Between, AND, LIKE:
+
+1. Write an SQL query to retrieve the names and emails of all customers. 
+
+mysql> select concat(FirstName,LastName), Email from Customers;
++----------------------------+---------------------+
+| concat(FirstName,LastName) | Email               |
++----------------------------+---------------------+
+| ParthiRaja                 | parthi@example.com  |
+| PriyaKumar                 | priya@example.com   |
+| ManiSrinivasan             | mani@example.com    |
+| DeepikaNatarajan           | deepika@example.com |
+| ArjunGanesan               | arjun@example.com   |
+| NithyaBalaji               | nithya@example.com  |
+| SenthilRavi                | senthil@example.com |
+| ShreyaVenkat               | shreya@example.com  |
+| VijayPrakash               | vijay@example.com   |
+| AnushaKumar                | anusha@example.com  |
++----------------------------+---------------------+
+10 rows in set (0.05 sec)
+
+2. Write an SQL query to list all orders with their order dates and corresponding customer
+names.
+
+mysql> select OrderID,OrderDate from Orders;
++---------+------------+
+| OrderID | OrderDate  |
++---------+------------+
+|       1 | 2024-04-27 |
+|       2 | 2024-04-27 |
+|       3 | 2024-04-27 |
+|       4 | 2024-04-27 |
+|       5 | 2024-04-27 |
+|       6 | 2024-04-27 |
+|       7 | 2024-04-27 |
+|       8 | 2024-04-27 |
+|       9 | 2024-04-27 |
+|      10 | 2024-04-27 |
++---------+------------+
+10 rows in set (0.01 sec)
+
+3. Write an SQL query to insert a new customer record into the "Customers" table. Include
+customer information such as name, email, and address.
+
+mysql> insert into Customers (CustomerID, FirstName, LastName, Email, Ph
+one, Address) values (11,"NMK", "Namashivayam", "nmk@example.com", "8110019885","14 Maha St");
+Query OK, 1 row affected (0.02 sec)
+
+4. Write an SQL query to update the prices of all electronic gadgets in the "Products" table by
+increasing them by 10%.
+
+update Products set Price = Price * 1.1 where Type like %Electronics%;
+Query OK, 10 rows affected (0.01 sec)
+Rows matched: 10  Changed: 10  Warnings: 0
+
+5. Write an SQL query to delete a specific order and its associated order details from the "Orders" and "OrderDetails" tables. Allow users to input the order ID as a parameter.
+
+mysql> delete from OrderDetails where OrderID = 5;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from Orders where OrderID = 5;
+Query OK, 1 row affected (0.01 sec)
+
+6. Write an SQL query to insert a new order into the "Orders" table. Include the customer ID,
+order date, and any other necessary information.
+
+mysql> insert into Orders (OrderID, CustomerID, OrderDate, TotalAmount) values (11, 11, '2024-08-16', 1120);
+Query OK, 1 row affected (0.01 sec)
+
+7. Write an SQL query to update the contact information (e.g., email and address) of a specific customer in the "Customers" table. Allow users to input the customer ID and new contact information
+
+mysql> update Customers set Email = "nmknama@example.com",Address = "Mah
+a st Dgl" where CustomerID = 11;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+8. Write an SQL query to recalculate and update the total cost of each order in the "Orders" table based on the prices and quantities in the "OrderDetails" table.
+
+mysql> update Orders set TotalAmount = (select sum(OrderDetails.Quantity*Products.Price) from OrderDetails inner join Products on OrderDetails.ProductID=Products.ProductID where OrderDetails.OrderID = Orders.OrderID);
+Query OK, 11 rows affected (0.03 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+9. Write an SQL query to delete all orders and their associated order details for a specific customer from the "Orders" and "OrderDetails" tables. Allow users to input the customer ID as a parameter.
+
+mysql> delete from OrderDetails where OrderID in (select OrderID from Orders where CustomerID = 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from Orders where CustomerID = 1;
+Query OK, 1 row affected (0.01 sec)
+
+10. Write an SQL query to insert a new electronic gadget product into the "Products" table, including product name, category, price, and any other relevant details.
+
+mysql> insert into Products (ProductID, ProductName, Description, Price, Type) values (11, 'Head Phone', 'Hear the Sounf of World', 499, 'Electr
+onics');
+Query OK, 1 row affected (0.05 sec)
+
+11. Write an SQL query to update the status of a specific order in the "Orders" table (e.g., from "Pending" to "Shipped"). Allow users to input the order ID and the new status.
+
+mysql> alter table OrderDetails add Status varchar(20);
+Query OK, 0 rows affected (0.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update OrderDetails set Status = "shipped" where OrderID between 1 and 5;
+Query OK, 5 rows affected (0.01 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> update OrderDetails set Status = "not shipped" where OrderID betw
+een 6 and 10;
+Query OK, 5 rows affected (0.02 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+12. Write an SQL query to calculate and update the number of orders placed by each customer in the "Customers" table based on the data in the "Orders" table.
+
+mysql> select od.* from OrderDetails od join Orders o on od.OrderID = o.OrderID order by o.OrderDate;
++---------------+---------+-----------+----------+
+| OrderDetailID | OrderID | ProductID | Quantity |
++---------------+---------+-----------+----------+
+|             1 |       1 |         1 |        2 |
+|             2 |       2 |         2 |        1 |
+|             3 |       3 |         3 |        3 |
+|             4 |       4 |         4 |        1 |
+|             5 |       5 |         5 |        2 |
+|             6 |       6 |         6 |        1 |
+|             7 |       7 |         7 |        1 |
+|             8 |       8 |         8 |        2 |
+|             9 |       9 |         9 |        1 |
+|            10 |      10 |        10 |        1 |
++---------------+---------+-----------+----------+
+10 rows in set (0.02 sec)
+-----------------------------------------------------------------------------------------------------------------------------
+
+Task 3
+
+1. Write an SQL query to retrieve a list of all orders along with customer information (e.g., customer name) for each order.
+
+mysql> select OrderID,OrderDate,TotalAmount,concat(FirstName, LastName), Email, Phone, Address from Orders o join Customers c on o.CustomerID = c.CustomerID;
++---------+------------+-------------+-----------------------------+---------------------+------------+---------------+
+| OrderID | OrderDate  | TotalAmount | concat(FirstName, LastName) | Email               | Phone      | Address       |
++---------+------------+-------------+-----------------------------+---------------------+------------+---------------+
+|       1 | 2024-04-27 |        2640 | ParthiRaja                  | parthi@example.com  | 1234567890 | 123 Main St   |
+|       2 | 2024-04-27 |         880 | PriyaKumar                  | priya@example.com   | 9876543210 | 456 Elm St    |
+|       3 | 2024-04-27 |         495 | ManiSrinivasan              | mani@example.com    | 1357924680 | 789 Oak St    |
+|       4 | 2024-04-27 |         440 | DeepikaNatarajan            | deepika@example.com | 2468013579 | 101 Maple St  |
+|       5 | 2024-04-27 |         440 | ArjunGanesan                | arjun@example.com   | 3692581470 | 202 Pine St   |
+|       6 | 2024-04-27 |         110 | NithyaBalaji                | nithya@example.com  | 9753108246 | 303 Cedar St  |
+|       7 | 2024-04-27 |        1650 | SenthilRavi                 | senthil@example.com | 8642075139 | 404 Walnut St |
+|       8 | 2024-04-27 |         550 | ShreyaVenkat                | shreya@example.com  | 5827309146 | 505 Birch St  |
+|       9 | 2024-04-27 |         550 | VijayPrakash                | vijay@example.com   | 7916348025 | 606 Spruce St |
+|      10 | 2024-04-27 |         132 | AnushaKumar                 | anusha@example.com  | 4089271563 | 707 Fir St    |
+|      11 | 2024-08-16 |        NULL | NMKNamashivayam             | nmk@example.com     | 8110019885 | 14 Maha St    |
++---------+------------+-------------+-----------------------------+---------------------+------------+---------------+
+11 rows in set (0.04 sec)
+
+2. Write an SQL query to find the total revenue generated by each electronic gadget product. Include the product name and the total revenue.
+
+mysql> select ProductName, sum(Quantity*Price) as TotalReveue from Products p join OrderDetails od on p.ProductID = od.ProductID join Orders o o
+n od.OrderID = o.OrderID where p.Type = "Electronics" group by p.Product
+Name;
++----------------+-------------+
+| ProductName    | TotalReveue |
++----------------+-------------+
+| Laptop         |        2640 |
+| Smartphone     |         880 |
+| Headphones     |         495 |
+| Tablet         |         440 |
+| Smartwatch     |         440 |
+| Speaker        |         110 |
+| Camera         |        1650 |
+| Printer        |         550 |
+| Gaming Console |         550 |
+| Router         |         132 |
++----------------+-------------+
+10 rows in set (0.06 sec)
+
+3. Write an SQL query to list all customers who have made at least one purchase. Include their names and contact information.
+
+mysql> select concat(FirstName,LastName), Email, Phone, Address from Cus
+tomers C inner join Orders o on c.CustomerID = o.CustomerID group by c.C
+ustomerID;
++----------------------------+---------------------+------------+---------------+
+| concat(FirstName,LastName) | Email               | Phone      | Address       |
++----------------------------+---------------------+------------+---------------+
+| ParthiRaja                 | parthi@example.com  | 1234567890 | 123 Main St   |
+| PriyaKumar                 | priya@example.com   | 9876543210 | 456 Elm St    |
+| ManiSrinivasan             | mani@example.com    | 1357924680 | 789 Oak St    |
+| DeepikaNatarajan           | deepika@example.com | 2468013579 | 101 Maple St  |
+| ArjunGanesan               | arjun@example.com   | 3692581470 | 202 Pine St   |
+| NithyaBalaji               | nithya@example.com  | 9753108246 | 303 Cedar St  |
+| SenthilRavi                | senthil@example.com | 8642075139 | 404 Walnut St |
+| ShreyaVenkat               | shreya@example.com  | 5827309146 | 505 Birch St  |
+| VijayPrakash               | vijay@example.com   | 7916348025 | 606 Spruce St |
+| AnushaKumar                | anusha@example.com  | 4089271563 | 707 Fir St    |
+| NMKNamashivayam            | nmk@example.com     | 8110019885 | 14 Maha St    |
++----------------------------+---------------------+------------+---------------+
+11 rows in set (0.01 sec)
+
+4. Write an SQL query to find the most popular electronic gadget, which is the one with the highest total quantity ordered. Include the product name and the total quantity ordered.
+
+mysql> select ProductName, sum(Quantity) as TotQtyOrdered from Products p join OrderDetails od on p.ProductID = od.ProductID join Orders o on od.OrderID = o.OrderID where p.Type = "Electronics" group by p.ProductName order by TotQtyOrdered desc;
++----------------+---------------+
+| ProductName    | TotQtyOrdered |
++----------------+---------------+
+| Headphones     |             3 |
+| Laptop         |             2 |
+| Smartwatch     |             2 |
+| Printer        |             2 |
+| Smartphone     |             1 |
+| Tablet         |             1 |
+| Speaker        |             1 |
+| Camera         |             1 |
+| Gaming Console |             1 |
+| Router         |             1 |
++----------------+---------------+
+10 rows in set (0.01 sec)
+
+5. Write an SQL query to retrieve a list of electronic gadgets along with their corresponding categories
+
+mysql> select ProductName, Type from Products where Type = "Electronics" group by ProductName;
++----------------+-------------+
+| ProductName    | Type        |
++----------------+-------------+
+| Laptop         | Electronics |
+| Smartphone     | Electronics |
+| Headphones     | Electronics |
+| Tablet         | Electronics |
+| Smartwatch     | Electronics |
+| Speaker        | Electronics |
+| Camera         | Electronics |
+| Printer        | Electronics |
+| Gaming Console | Electronics |
+| Router         | Electronics |
+| Head Phone     | Electronics |
++----------------+-------------+
+11 rows in set (0.00 sec)
+
+6. Write an SQL query to calculate the average order value for each customer. Include the customer's name and their average order value.
+
+mysql> select concat(Firstname,LastName), avg(TotalAmount) from Customer
+s c join Orders o on c.CustomerID = o.CustomerID group by c.CustomerID;
++----------------------------+------------------+
+| concat(Firstname,LastName) | avg(TotalAmount) |
++----------------------------+------------------+
+| ParthiRaja                 |        2640.0000 |
+| PriyaKumar                 |         880.0000 |
+| ManiSrinivasan             |         495.0000 |
+| DeepikaNatarajan           |         440.0000 |
+| ArjunGanesan               |         440.0000 |
+| NithyaBalaji               |         110.0000 |
+| SenthilRavi                |        1650.0000 |
+| ShreyaVenkat               |         550.0000 |
+| VijayPrakash               |         550.0000 |
+| AnushaKumar                |         132.0000 |
+| NMKNamashivayam            |             NULL |
++----------------------------+------------------+
+11 rows in set (0.01 sec)
+
+7. Write an SQL query to find the order with the highest total revenue. Include the order ID, customer information, and the total revenue.
+
+mysql> select OrderID, concat(FirstName," ", LastName), Email, Phone, Address, max(TotalAmount) as TotReven from Orders o join Customers c on o.CustomerID = c.CustomerID group by concat(FirstName," ", LastName);
++---------+---------------------------------+---------------------+------------+---------------+----------+
+| OrderID | concat(FirstName," ", LastName) | Email               | Phone      | Address       | TotReven |
++---------+---------------------------------+---------------------+------------+---------------+----------+
+|       1 | Parthi Raja                     | parthi@example.com  | 1234567890 | 123 Main St   |     2640 |
+|       2 | Priya Kumar                     | priya@example.com   | 9876543210 | 456 Elm St    |      880 |
+|       3 | Mani Srinivasan                 | mani@example.com    | 1357924680 | 789 Oak St    |      495 |
+|       4 | Deepika Natarajan               | deepika@example.com | 2468013579 | 101 Maple St  |      440 |
+|       5 | Arjun Ganesan                   | arjun@example.com   | 3692581470 | 202 Pine St   |      440 |
+|       6 | Nithya Balaji                   | nithya@example.com  | 9753108246 | 303 Cedar St  |      110 |
+|       7 | Senthil Ravi                    | senthil@example.com | 8642075139 | 404 Walnut St |     1650 |
+|       8 | Shreya Venkat                   | shreya@example.com  | 5827309146 | 505 Birch St  |      550 |
+|       9 | Vijay Prakash                   | vijay@example.com   | 7916348025 | 606 Spruce St |      550 |
+|      10 | Anusha Kumar                    | anusha@example.com  | 4089271563 | 707 Fir St    |      132 |
+|      11 | NMK Namashivayam                | nmk@example.com     | 8110019885 | 14 Maha St    |     NULL |
++---------+---------------------------------+---------------------+------------+---------------+----------+
+11 rows in set (0.02 sec)
+
+8. Write an SQL query to list electronic gadgets and the number of times each product has been ordered.
+
+mysql> select ProductName, count(*) from Products p join OrderDetails od
+ on p.ProductID = od.ProductID where p.Type="Electronics" group by p.Pro
+ductName;
++----------------+----------+
+| ProductName    | count(*) |
++----------------+----------+
+| Laptop         |        1 |
+| Smartphone     |        1 |
+| Headphones     |        1 |
+| Tablet         |        1 |
+| Smartwatch     |        1 |
+| Speaker        |        1 |
+| Camera         |        1 |
+| Printer        |        1 |
+| Gaming Console |        1 |
+| Router         |        1 |
++----------------+----------+
+10 rows in set (0.01 sec)
+
+9. Write an SQL query to find customers who have purchased a specific electronic gadget product. Allow users to input the product name as a parameter.
+
+mysql> select concat(FirstName," ",LastName), Email, Phone, Address from Customers c join Orders o on c.CustomerID = o.CustomerID join OrderDetails od on o.OrderId = od.OrderID join Products p on od.ProductID = p.ProductID where p.ProductName = "Smartphone";
++--------------------------------+-------------------+------------+------------+
+| concat(FirstName," ",LastName) | Email             | Phone      | Address    |
++--------------------------------+-------------------+------------+------------+
+| Priya Kumar                    | priya@example.com | 9876543210 | 456 Elm St |
++--------------------------------+-------------------+------------+------------+
+1 row in set (0.01 sec)
+
+10. Write an SQL query to calculate the total revenue generated by all orders placed within a specific time period. Allow users to input the start and end dates as parameters.
+
+mysql> select sum(TotalAmount) from Orders where OrderDate >= '2024-03-0
+1' and OrderDate <= '2024-08-31';
++------------------+
+| sum(TotalAmount) |
++------------------+
+|             7887 |
++------------------+
+1 row in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+1. Write an SQL query to find out which customers have not placed any orders
+
+mysql> select concat(FirstName," ",LastName), Email, Phone, Address from Customers c left join Orders o on c.CustomerID = o.CustomerID where o.TotalAmount is Null;
++--------------------------------+-----------------+------------+------------+
+| concat(FirstName," ",LastName) | Email           | Phone      | Address    |
++--------------------------------+-----------------+------------+------------+
+| NMK Namashivayam               | nmk@example.com | 8110019885 | 14 Maha St |
++--------------------------------+-----------------+------------+------------+
+1 row in set (0.01 sec)
+
+2. Write an SQL query to find the total number of products available for sale
+
+mysql> select count(*) from Products;
++----------+
+| count(*) |
++----------+
+|       11 |
++----------+
+1 row in set (0.04 sec)
+
+3. Write an SQL query to calculate the total revenue generated by TechShop. 
+
+mysql> select sum(TotalAmount) from Orders;
++------------------+
+| sum(TotalAmount) |
++------------------+
+|             7887 |
++------------------+
+1 row in set (0.00 sec)
+
+4. Write an SQL query to calculate the average quantity ordered for products in a specific category. Allow users to input the category name as a parameter.
+
+mysql> select avg(Quantity) from OrderDetails od join Products p on od.P
+roductID = p.ProductID where p.Type="Electronics";
++---------------+
+| avg(Quantity) |
++---------------+
+|        1.5000 |
++---------------+
+1 row in set (0.00 sec)
+
+5. Write an SQL query to calculate the total revenue generated by a specific customer. Allow users to input the customer ID as a parameter.
+
+mysql> select sum(TotalAmount) from Orders o where o.CustomerID = 1;
++-------------------+
+| sum(TotalAmount) |
++-------------------+
+|              2640 |
++-------------------+
+1 row in set (0.00 sec)
+
+6. Write an SQL query to find the customers who have placed the most orders. List their names and the number of orders they've placed.
+
+mysql> select concat(FirstName, ' ', LastName), count(*) from Customers c join Orders o on c.CustomerID = o.CustomerID group by c.CustomerID having count(*) = (select max(ordercount) from (select count(*) as ordercount from Orders group by CustomerID)as t);
++----------------------------------+----------+
+| concat(FirstName, ' ', LastName) | count(*) |
++----------------------------------+----------+
+| Parthi Raja                      |        1 |
+| Priya Kumar                      |        1 |
+| Mani Srinivasan                  |        1 |
+| Deepika Natarajan                |        1 |
+| Arjun Ganesan                    |        1 |
+| Nithya Balaji                    |        1 |
+| Senthil Ravi                     |        1 |
+| Shreya Venkat                    |        1 |
+| Vijay Prakash                    |        1 |
+| Anusha Kumar                     |        1 |
+| NMK Namashivayam                 |        1 |
++----------------------------------+----------+
+11 rows in set (0.01 sec)
+
+7. Write an SQL query to find the most popular product category, which is the one with the highest total quantity ordered across all orders
+
+mysql> select Type, sum(Quantity) from OrderDetails od join Products p o
+n od.ProductID = p.ProductID group by p.Type;
++-------------+---------------+
+| Type        | sum(Quantity) |
++-------------+---------------+
+| Electronics |            15 |
++-------------+---------------+
+1 row in set (0.01 sec)
+
+8. Write an SQL query to find the customer who has spent the most money (highest total revenue) on electronic gadgets. List their name and total spending.
+
+mysql> select concat(FirstName, " ", LastName), sum(Quantity*Price) from Customers c join Orders o on c.CustomerID = o.CustomerID join OrderDetails od on o.OrderID = od.OrderID join Products p on od.ProductID = p.ProductID where p.Type = "Electronics" group by c.CustomerID;
++----------------------------------+---------------------+
+| concat(FirstName, " ", LastName) | sum(Quantity*Price) |
++----------------------------------+---------------------+
+| Parthi Raja                      |                2640 |
+| Priya Kumar                      |                 880 |
+| Mani Srinivasan                  |                 495 |
+| Deepika Natarajan                |                 440 |
+| Arjun Ganesan                    |                 440 |
+| Nithya Balaji                    |                 110 |
+| Senthil Ravi                     |                1650 |
+| Shreya Venkat                    |                 550 |
+| Vijay Prakash                    |                 550 |
+| Anusha Kumar                     |                 132 |
++----------------------------------+---------------------+
+10 rows in set (0.02 sec)
+
+9. Write an SQL query to calculate the average order value (total revenue divided by the number of orders) for all customers.
+
+mysql> select avg(TotalAmount) from Orders;
++------------------+
+| avg(TotalAmount) |
++------------------+
+|         788.7000 |
++------------------+
+1 row in set (0.00 sec)
+
+10. Write an SQL query to find the total number of orders placed by each customer and list their names along with the order count.
+
+mysql> select concat(FirstName," ",LastName),count(OrderID) from Customers c left join Orders o on c.CustomerID = o.CustomerID group by c.Custom
+erID;
++--------------------------------+----------------+
+| concat(FirstName," ",LastName) | count(OrderID) |
++--------------------------------+----------------+
+| Parthi Raja                    |              1 |
+| Priya Kumar                    |              1 |
+| Mani Srinivasan                |              1 |
+| Deepika Natarajan              |              1 |
+| Arjun Ganesan                  |              1 |
+| Nithya Balaji                  |              1 |
+| Senthil Ravi                   |              1 |
+| Shreya Venkat                  |              1 |
+| Vijay Prakash                  |              1 |
+| Anusha Kumar                   |              1 |
+| NMK Namashivayam               |              1 |
++--------------------------------+----------------+
+11 rows in set (0.01 sec)
+
+
+
+
+
