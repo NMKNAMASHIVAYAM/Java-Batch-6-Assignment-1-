@@ -6,34 +6,34 @@ You are working as a database administrator for a fictional company named "TechS
 Database Tables:
 
 1. Customers:
-• CustomerID (Primary Key)
-• FirstName
-• LastName
-• Email
-• Phone
-• Address
+  • CustomerID (Primary Key)
+  • FirstName
+  • LastName
+  • Email
+  • Phone
+  • Address
 
 2. Products:
-• ProductID (Primary Key)
-• ProductName
-• Description
-• Price
+  • ProductID (Primary Key)
+  • ProductName
+  • Description
+  • Price
 
 3. Orders:
-• OrderID (Primary Key)
-• CustomerID (Foreign Key referencing Customers)
-• OrderDate
-• TotalAmount
+  • OrderID (Primary Key)
+  • CustomerID (Foreign Key referencing Customers)
+  • OrderDate
+  • TotalAmount
 
 4. OrderDetails:
-• OrderDetailID (Primary Key)
-• OrderID (Foreign Key referencing Orders)
-• ProductID (Foreign Key referencing Products)
-• Quantity
+  • OrderDetailID (Primary Key)
+  • OrderID (Foreign Key referencing Orders)
+  • ProductID (Foreign Key referencing Products)
+  • Quantity
 
 5. Inventory
-• InventoryID (Primary Key)
-• ProductID (Foreign Key referencing Products)
-• QuantityInStock
-• LastStockUpdate
+  • InventoryID (Primary Key)
+  • ProductID (Foreign Key referencing Products)
+  • QuantityInStock
+  • LastStockUpdate
 
